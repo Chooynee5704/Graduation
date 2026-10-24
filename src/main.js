@@ -2,46 +2,71 @@ import './style.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-
 gsap.registerPlugin(ScrollTrigger);
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-const context = gsap.matchMedia();
-let lenis;
-let tick;
-
-context.add('(prefers-reduced-motion: no-preference)', () => {
-  lenis = new Lenis({ lerp: 0.085, smoothWheel: true, anchors: true });
+const scenes = [...document.querySelectorAll('[data-scene]')];
+const navLinks = [...document.querySelectorAll('.chapter-nav a')];
+const progressBar = document.querySelector('.scroll-progress');
+const motionButton = document.querySelector('.motion-toggle');
+const finale = document.querySelector('.finale');
+const media = gsap.matchMedia();
+const forceStatic = new URLSearchParams(location.search).get('motion') === 'reduce';
+if(forceStatic) document.documentElement.classList.add('reduced-motion');
+let world, lenis, paused = false, metrics = [];
+const state = { exact: 0, last: -1, finale: 0 };
+function measure() { metrics = scenes.map(s => ({ top: s.offsetTop, height: s.offsetHeight })); }
+function conduct() {
+  const y = scrollY;
+  let index = 0;
+  for (let i = 0; i < metrics.length; i++) if (y + 1 >= metrics[i].top) index = i;
+  const m = metrics[index];
+  state.exact = Math.min(3.999, index + Math.max(0, Math.min(1, (y - m.top) / m.height)));
+  state.finale = Math.max(0, Math.min(1, (y - finale.offsetTop + innerHeight) / innerHeight));
+  progressBar.style.transform = `scaleX(${y / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`;
+  if (state.last !== index) { navLinks.forEach((a,i) => i === index ? a.setAttribute('aria-current','step') : a.removeAttribute('aria-current')); state.last = index; }
+}
+measure(); conduct();
+const onResize = () => { measure(); conduct(); };
+window.addEventListener('scroll', conduct, { passive:true });
+window.addEventListener('resize', onResize, { passive:true });
+window.addEventListener('pageshow', onResize);
+document.fonts.ready.then(() => { measure(); conduct(); ScrollTrigger.refresh(); });
+media.add('(prefers-reduced-motion: no-preference)', () => {
+  if(forceStatic) return;
+  lenis = new Lenis({ lerp:.09, smoothWheel:true, anchors:{ duration:1.5 } });
   lenis.on('scroll', ScrollTrigger.update);
-  tick = time => lenis?.raf(time * 1000);
-  gsap.ticker.add(tick);
-  gsap.ticker.lagSmoothing(0);
-  const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  intro.from('.hero-art', { scale: 1.12, opacity: 0, duration: 1.7 })
-    .from('.hero-title-wrap h1 > span', { y: 60, opacity: 0, duration: 1.1, stagger: 0.12 }, 0.18)
-    .from('.hero-intro, .hero-fullname, .hero-top', { opacity: 0, y: 12, stagger: 0.1, duration: 0.8 }, 0.5)
-    .from('.nav, .hero-bottom, .hero-note', { opacity: 0, duration: 0.9 }, 0.7);
-  gsap.to('.hero-art', { yPercent: 16, scale: 1.09, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-  gsap.to('.hero-title-wrap', { y: -65, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-  gsap.from('.opening-grid', { y: 50, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.opening-grid', start: 'top 84%', once: true } });
-  gsap.timeline({ scrollTrigger: { trigger: '.chapter', start: 'top top', end: 'bottom bottom', scrub: 1 } })
-    .fromTo('.chapter-outline', { xPercent: 8 }, { xPercent: -22, ease: 'none' }, 0)
-    .fromTo('.chapter h2', { y: 40 }, { y: -24, ease: 'none' }, 0)
-    .fromTo('.chapter p', { opacity: 0.25, y: 30 }, { opacity: 1, y: 0, ease: 'none', duration: 0.5 }, 0);
-  gsap.fromTo('.ticket', { y: 80, rotate: 3 }, { y: 0, rotate: -1, ease: 'none', scrollTrigger: { trigger: '.ticket', start: 'top 96%', end: 'top 30%', scrub: 1 } });
-  gsap.from('.closing h2', { y: 55, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.closing-content', start: 'top 80%', once: true } });
-  gsap.to('.closing-star', { rotation: 100, ease: 'none', scrollTrigger: { trigger: '.closing', start: 'top bottom', end: 'bottom bottom', scrub: 1 } });
-  const visibility = () => { if (document.hidden) lenis?.stop(); else lenis?.start(); };
-  document.addEventListener('visibilitychange', visibility);
-  return () => { document.removeEventListener('visibilitychange', visibility); gsap.ticker.remove(tick); lenis?.destroy(); lenis = undefined; };
+  let cancelled = false;
+  import('./world.js').then(({createWorld}) => {
+    if(cancelled) return;
+    world = createWorld(document.querySelector('#world'), state);
+  }).catch(error => { if(!cancelled){document.body.classList.add('fallback-mode'); console.warn('3D fallback active:',error.message);} });
+  const ticker = (time, delta) => { lenis.raf(time * 1000); world?.update(time, Math.min(delta/1000,1/30), paused); };
+  gsap.ticker.add(ticker); gsap.ticker.lagSmoothing(0);
+  gsap.timeline({ defaults:{ ease:'power4.out' } })
+    .from('.hero-title .title-line',{ yPercent:65, opacity:0, stagger:.13, duration:1.5 },.15)
+    .from('.hero-person, .hero-kicker, .hero-date',{ y:20, opacity:0, stagger:.12, duration:1 },.6)
+    .from('.nav, .scroll-cue, .chapter-nav',{ opacity:0, duration:1 },.4);
+  gsap.timeline({ scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:.8 } })
+    .to('.hero-title',{ scale:1.5, xPercent:-12, yPercent:-15, opacity:0, ease:'none' },.05)
+    .fromTo('.hero-person, .hero-kicker, .hero-coordinate, .hero-date, .scroll-cue',{ opacity:1,y:0 },{ opacity:0,y:-40,ease:'none',immediateRender:false },.18);
+  gsap.timeline({ scrollTrigger:{ trigger:'.code-scene',start:'top bottom',end:'bottom top',scrub:1 } })
+    .fromTo('.code-heading',{ x:-75,opacity:0 },{ x:0,opacity:1,duration:.2 },.1)
+    .fromTo('.floating-word',{ xPercent:25,opacity:0 },{ xPercent:-8,opacity:1,duration:.4 },.2)
+    .to('.code-heading, .floating-word',{ y:-80,opacity:0,duration:.15 },.7);
+  gsap.timeline({ scrollTrigger:{ trigger:'.graduate-scene',start:'top 85%',end:'bottom top',scrub:1 } })
+    .fromTo('.graduate-title h2>span:first-child',{ xPercent:15,opacity:0 },{ xPercent:0,opacity:1,duration:.25 },0)
+    .fromTo('.graduate-line',{ xPercent:-20,opacity:0 },{ xPercent:0,opacity:1,duration:.3 },.08)
+    .fromTo('.graduate-code, .thank-you',{ y:35,opacity:0 },{ y:0,opacity:1,duration:.2 },.25)
+    .to('.graduate-title, .graduate-code, .thank-you',{ y:-45,opacity:0,duration:.2 },.75);
+  gsap.timeline({ scrollTrigger:{ trigger:'.invitation-scene',start:'top 90%',end:'top top',scrub:.8 } })
+    .from('.invite-intro',{ x:-60,opacity:0,duration:1 },0)
+    .from('.event',{ y:80,rotationX:15,opacity:0,duration:1 },.1);
+  gsap.from('.finale h2',{ yPercent:30,opacity:0,ease:'none',scrollTrigger:{ trigger:'.finale',start:'top 85%',end:'top 15%',scrub:1 } });
+  return () => { cancelled = true; gsap.ticker.remove(ticker); lenis.destroy(); world?.dispose(); world = undefined; };
 });
-
-const updateProgress = () => {
-  const max = document.documentElement.scrollHeight - innerHeight;
-  document.querySelector('.progress').style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-};
-window.addEventListener('scroll', updateProgress, { passive: true });
-window.addEventListener('resize', updateProgress, { passive: true });
-document.fonts.ready.then(() => ScrollTrigger.refresh());
-window.addEventListener('load', () => { ScrollTrigger.refresh(); updateProgress(); });
-window.addEventListener('pagehide', () => { context.revert(); window.removeEventListener('scroll', updateProgress); window.removeEventListener('resize', updateProgress); }, { once: true });
-if (import.meta.hot) import.meta.hot.dispose(() => { context.revert(); ScrollTrigger.killAll(); window.removeEventListener('scroll', updateProgress); window.removeEventListener('resize', updateProgress); });
+motionButton.addEventListener('click', () => { paused = !paused; motionButton.setAttribute('aria-pressed',String(paused)); motionButton.setAttribute('aria-label',paused?'Tiếp tục chuyển động nền':'Tạm dừng chuyển động nền'); motionButton.querySelector('.motion-label').textContent = paused?'Motion off':'Motion on'; motionButton.firstElementChild.textContent = paused?'▷':'Ⅱ'; });
+const visibility = () => world?.setHidden(document.hidden);
+document.addEventListener('visibilitychange',visibility);
+window.addEventListener('load',()=>{ measure(); conduct(); ScrollTrigger.refresh(); });
+function destroy() { media.revert(); window.removeEventListener('scroll',conduct); window.removeEventListener('resize',onResize); window.removeEventListener('pageshow',onResize); document.removeEventListener('visibilitychange',visibility); }
+window.addEventListener('pagehide',event=>{ if(!event.persisted) destroy(); });
+if(import.meta.hot) import.meta.hot.dispose(destroy);

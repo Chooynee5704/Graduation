@@ -1,8 +1,6 @@
-# Phương Mai — Một chương mới
+# Phương Mai — Hello, future.
 
-Thiệp mời tốt nghiệp cinematic, cam và đen, dành cho Nguyễn Thị Phương Mai.
-
-## Chạy dự án
+Thiệp mời tốt nghiệp cinematic 3D, cam–đen, dành cho Nguyễn Thị Phương Mai.
 
 ```sh
 npm install
@@ -11,20 +9,18 @@ npm run build
 npm run preview
 ```
 
-Nội dung ở `index.html`, bố cục responsive ở `src/style.css`, chuyển động ở `src/main.js`.
+Ngày: **07.11.2026**. Địa chỉ: **Đường D1, Khu Công nghệ cao, Tăng Nhơn Phú, TP HCM**. Chưa có giờ tổ chức nên không tự thêm.
 
-Ngày: **07.11.2026**. Địa chỉ: **Đường D1, Khu Công nghệ cao, Tăng Nhơn Phú, TP HCM**. Giờ tổ chức chưa được cung cấp nên không hiển thị.
+## Bản dựng hiện tại
 
-## Art direction
+Một world Three.js xuyên suốt với mũ tốt nghiệp có vật liệu vải, tua cam, dải đồng xoắn, terminal/code trong chiều sâu, hạt mũ tách rồi tụ lại và camera điều khiển bằng native scroll. GSAP + ScrollTrigger + Lenis. Background là shader realtime sử dụng ảnh ImageGen làm chất liệu; không phải video AI.
 
-“A new chapter, compiled.” Mũ tốt nghiệp và lụa cam, typography lớn, lời cảm ơn trên một sân khấu sticky màu cam, thiệp mời dạng vé và lời hẹn ở chương mới. Bảng màu: `#0a0a0a`, `#ff681d`, `#eeeae2`, `#a4a29d`. Be Vietnam Pro cho tiếng Việt, Manrope cho typography lớn. GSAP + ScrollTrigger và một smooth-scroll engine duy nhất là Lenis; không dùng Three.js. Reduced motion bỏ smooth scrolling, scrub và intro. Nội dung vẫn đọc được khi JavaScript tắt.
+Nội dung: `index.html`. Responsive: `src/style.css`. DOM motion và scroll conductor: `src/main.js`. Scene, camera và shader: `src/world.js`.
 
-## Nguồn hình ảnh
+Đọc [WORLD.md](WORLD.md) cho scene/camera/material/asset/lifecycle ledgers, [SKILLS-REVIEW.md](SKILLS-REVIEW.md) cho khảo sát 61 skill đầy đủ của project, và `qa/` cho bằng chứng kiểm thử.
 
-`public/assets/graduation-hero.png` là hình gốc tạo riêng bằng công cụ ImageGen tích hợp. Không dùng hình người hoặc hình giả danh sinh viên. Prompt: “Premium cinematic 3D editorial image, one realistic black graduation mortarboard floating diagonally in dark space, long orange tassel, broad orange satin ribbon spiralling behind, orange rim lighting, fine haze, black background, object cluster on the right, negative space on the left, no people, text, logos or watermark.”
-
-Font từ Google Fonts. Biểu tượng mũi tên và dấu ngoặc là ký tự văn bản, favicon là wordmark pm. Thông tin FPT chỉ xác định trường tổ chức; đây là thiệp mời cá nhân.
+`?motion=reduce` mở bản tĩnh để kiểm tra fallback. Hệ điều hành bật reduced motion cũng nhận bản này tự động. Nút pause chỉ tạm dừng chuyển động nền tự động, vẫn giữ điều hướng cuộn.
 
 ## Hosting
 
-Sites identity được lưu ở `.openai/hosting.json`. `dist/` là bản build production. Site mới có chế độ riêng tư mặc định; cần cấu hình quyền truy cập phù hợp trước khi chia sẻ cho khách mời.
+Site identity trong `.openai/hosting.json`, bản production trong `dist/`. Giữ nguyên Site và quyền truy cập của bản trước. Chạy lại build trước khi đóng gói hoặc publish.
