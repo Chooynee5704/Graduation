@@ -1,6 +1,6 @@
 /* A formal, self-contained invitation within the existing orange/black world. */
 .invitation-stage{padding-block:64px;gap:7%}
-.invitation-card.event{--card-accent:#d79560;--card-copy:#c8bfb0;position:relative;isolation:isolate;max-width:510px;width:100%;justify-self:end;padding:34px 28px 30px;text-align:center;color:#f3ede3;background:linear-gradient(145deg,#191510 0%,#111110 45%,#17130f 100%);border:1px solid #ac714b85;box-shadow:0 18px 55px #0008,0 4px 14px #0005}
+.invitation-card.event{--card-accent:#d79560;--card-copy:#d6cdbf;position:relative;isolation:isolate;max-width:510px;width:100%;justify-self:end;padding:30px 28px 26px;text-align:center;color:#f3ede3;background:transparent;border:1px solid #ac714b85;box-shadow:none;text-shadow:0 2px 9px #000}
 .invitation-card:before{content:'';position:absolute;inset:9px;border:1px solid #b787562e;pointer-events:none;z-index:-1}
 .card-monogram{font:400 21px/1.2 'Noto Serif',serif;color:var(--card-accent);letter-spacing:.015em;width:54px;height:44px;display:grid;place-items:center;margin:0 auto 17px;border-bottom:1px solid #d7956059}
 .card-salutation{font:400 12px/1.7 'Noto Serif',serif;font-style:italic;color:var(--card-accent)}
@@ -18,6 +18,9 @@
 .card-venue{margin-top:19px}
 .card-venue h4{font:500 14px/1.6 var(--sans);margin:0 0 7px;color:#eee5d7}
 .card-venue p{font-size:11px;line-height:1.9;color:var(--card-copy)}
+.card-contact{font-size:11px;line-height:1.8;color:var(--card-copy);margin-top:12px}
+.card-contact a{color:#edbd96;text-underline-offset:4px;text-decoration:underline;text-decoration-color:#d7956059}
+.card-contact a:hover{color:#fff0dc}
 .card-message{font:400 italic 11px/1.9 'Noto Serif',serif;margin:20px 0 17px;color:var(--card-copy)}
 .invitation-card .map-link{display:inline-flex;align-items:center;justify-content:center;min-width:150px;min-height:42px;margin:0;padding:10px 22px;border:1px solid #d795606b;color:#e5bd98;font-size:10px;transition:background .2s,color .2s,border-color .2s}
 .invitation-card .map-link:hover{background:#d7956014;border-color:#d79560;color:#fff0dc}
@@ -27,3 +30,4 @@
 @media(max-width:650px){.invitation-scene{height:auto;min-height:150svh}.invitation-stage{position:relative;height:auto;min-height:100svh;padding:75px 6% 90px;gap:36px;background:linear-gradient(90deg,#0505058c,#05050566)}.invite-intro{padding-inline:3%}.invitation-card.event{max-width:480px;align-self:center;padding:29px 24px 27px}.card-monogram{font-size:20px;margin-bottom:15px}.invitation-card #card-title{font-size:32px;margin-bottom:17px}.card-salutation{font-size:12px}.card-welcome{font-size:10px}.card-graduate{font-size:23px;margin:14px -8px 6px}.card-discipline{font-size:9px}.card-divider{margin-block:23px}.card-date>strong{font-size:28px}.card-date>span{font-size:11px}.card-venue{margin-top:21px}.card-venue h4{font-size:14px}.card-venue p{font-size:11px}.card-message{font-size:11px;margin-top:22px}.invitation-card .map-link{font-size:11px;min-height:44px}.card-closing{margin-top:18px}}
 @media(prefers-reduced-motion:reduce){.invitation-stage{height:auto;min-height:100svh}.invitation-card .map-link{transition:none}}
 .reduced-motion .invitation-stage{height:auto;min-height:100svh}
+.invitation-stage{background:transparent}

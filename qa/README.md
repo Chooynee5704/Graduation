@@ -23,3 +23,9 @@ Not measured: physical phone thermals, battery use, GPU timing, a long-duration 
 ## Formal invitation refinement
 
 Replaced only the event panel with an opaque black/copper double-rule invitation, a PM monogram, Noto Serif ceremonial typography, formal salutation, full graduate name, semantic date, venue, welcome and map link. Phone uses normal document flow for the taller card so the closing and link remain reachable. Checked desktop 1440×900 and phone 390×844 with no horizontal overflow. The mechanical Impeccable scan was run once; its flat-type-hierarchy warning was a static-parser false positive (external CSS is imported by JS). Browser-computed role sizes were title 40px / name 28.8px / body 10px on desktop, and title 32px / name 23px on phone. Existing world, camera and other scenes were preserved.
+
+## Contact, transparent card and durable RSVP
+
+Added `tel:0979190137`, removed the card background/shadow and mobile invitation-stage scrim, and added the final name-only attendance form. Migrated the same Site identity from static output to the maintained Vinext Worker starter, with a Drizzle-generated D1 schema migration. Updated starter package versions to mutually compatible published releases after the original pins failed registry resolution; kept platform Sites integration intact.
+
+Six backend tests pass: normalized/apostrophe names use bound SQL parameters; invalid lengths cannot write; GET exposes no list; cross-origin POST is rejected; a retried ID does not duplicate; unavailable storage returns failure rather than success. Local Worker HTTP POST and browser form submission wrote actual rows into local D1. Querying local D1 confirmed durable rows. Production is not seeded with test names. Browser confirmed transparent background (`rgba(0,0,0,0)`), callable phone, successful acknowledgement and no horizontal overflow.

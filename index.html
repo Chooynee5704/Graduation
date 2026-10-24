@@ -39,12 +39,25 @@
   <div class="card-divider" aria-hidden="true"><span></span><i></i><span></span></div>
   <time class="card-date" datetime="2026-11-07"><span>Thứ Bảy</span><strong>07 <i>/</i> 11 <i>/</i> 2026</strong></time>
   <div class="card-venue"><h4>Đại học FPT</h4><p>Đường D1, Khu Công nghệ cao,<br>Tăng Nhơn Phú, TP HCM</p></div>
+  <p class="card-contact">Liên hệ Mai: <a href="tel:0979190137">0979 190 137</a></p>
   <p class="card-message">Sự hiện diện của Quý vị<br>sẽ làm buổi lễ thêm ý nghĩa.</p>
   <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Đại+học+FPT+Đường+D1+Khu+Công+nghệ+cao+Tăng+Nhơn+Phú+TP+HCM" target="_blank" rel="noopener noreferrer">Xem đường đi</a>
   <p class="card-closing">Hân hạnh đón tiếp.</p>
 </article>
 </div></section>
 <section class="finale" id="see-you" aria-labelledby="finale-title"><div class="finale-top"><span>&lt;/student&gt;</span><span>&lt;future&gt;</span></div><div class="finale-center"><p>Hẹn bạn ở chương mới.</p><h2 id="finale-title">LET'S MAKE<br><span>MEMORIES.</span></h2><a href="#invitation" class="finale-link">07.11.2026 <span>↗</span></a></div><footer><span>With love, Phương Mai.</span><span>Made of dreams & a little code.</span><a href="#home">Lên đầu ↑</a></footer></section>
+<section class="rsvp-section" id="rsvp" aria-labelledby="rsvp-title">
+  <div class="rsvp-intro"><span class="rsvp-signature">Một chỗ dành cho bạn.</span><h2 id="rsvp-title">Bạn sẽ đến<br>chung vui chứ?</h2><p>Nếu có thể tham dự, hãy để lại tên<br>để Mai biết và đón bạn nhé.</p></div>
+  <form class="rsvp-form" action="/api/rsvp" method="post">
+    <label for="guest-name">Tên của bạn</label>
+    <input id="guest-name" name="name" type="text" autocomplete="name" placeholder="Ví dụ: Minh Anh" minlength="2" maxlength="100" required aria-describedby="rsvp-hint rsvp-status">
+    <p id="rsvp-hint">Tên của bạn chỉ được lưu để Mai chuẩn bị đón tiếp.</p>
+    <button type="submit">Mình sẽ tham dự <span aria-hidden="true">↗</span></button>
+    <p id="rsvp-status" class="rsvp-status" role="status" aria-live="polite"></p>
+    <a class="rsvp-contact" href="tel:0979190137">Cần trao đổi thêm? Gọi Mai: 0979 190 137</a>
+  </form>
+  <div class="rsvp-footer"><span>Hẹn gặp bạn vào ngày 07.11.2026.</span><a href="#home">Về đầu trang ↑</a></div>
+</section>
 </main>
 <aside class="chapter-nav" aria-label="Các cảnh của thiệp mời"><a href="#home" aria-label="Mở đầu" aria-current="step"><span>01</span><i></i></a><a href="#hello-world" aria-label="Hello world"><span>02</span><i></i></a><a href="#graduation" aria-label="Tốt nghiệp"><span>03</span><i></i></a><a href="#invitation" aria-label="Lời mời"><span>04</span><i></i></a></aside>
 <button class="motion-toggle" type="button" aria-pressed="false" aria-label="Tạm dừng chuyển động nền"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Motion on</span></button>

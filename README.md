@@ -24,3 +24,19 @@ Nội dung: `index.html`. Responsive: `src/style.css`. DOM motion và scroll con
 ## Hosting
 
 Site identity trong `.openai/hosting.json`, bản production trong `dist/`. Giữ nguyên Site và quyền truy cập của bản trước. Chạy lại build trước khi đóng gói hoặc publish.
+
+## Xác nhận tham dự
+
+Website hiện chạy bằng Sites Vinext Worker để lưu xác nhận vào Cloudflare D1 (`DB`), bảng `attendance`. Chỉ lưu tên, mã chống gửi trùng và thời điểm gửi. Danh sách không có API đọc công khai. Chủ website có thể xem bảng trong Sites Settings → Database, hoặc yêu cầu Codex đọc danh sách qua công cụ Sites database.
+
+`index.html` vẫn là nguồn nội dung. `npm run build` trích phần body thành `app/experience.html`, giữ nguyên cảnh cinematic và build client + server. Khi sửa nội dung trước dev, chạy `node scripts/prepare-experience.mjs`.
+
+```sh
+npm run db:generate
+npm run build
+node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_luxuriant_wither.sql
+npm start -- --port 5173
+node --test tests/rsvp.test.mjs
+```
+
+Chỉ áp dụng migration local một lần cho mỗi database local. Sites áp dụng migration production khi deploy. Dữ liệu kiểm thử chỉ nằm local và không được đưa lên production. Link hiện giữ nguyên quyền truy cập của Site; cần quyền chia sẻ phù hợp để khách truy cập và gửi tên.
