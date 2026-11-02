@@ -44,7 +44,7 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
   intro.from('.hero-photo-wrap', { clipPath: 'inset(0 0 100% 0)', duration: 1.35 }, .05)
     .from('.hero h1', { y: 65, duration: 1.25 }, .12)
     .from('.portal-orbits i', { scale: .7, opacity: 0, rotation: '-=25', stagger: .1, duration: 1.6 }, .1)
-    .from('.hero-intro, .hero-topline, .hero-bottom', { opacity: 0, y: 12, stagger: .1, duration: .75 }, .35);
+    .from('.hero-intro, .hero-topline, .hero-bottom', { opacity: .7, y: 12, stagger: .1, duration: .75 }, .35);
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .7 } })
     .to('.hero-photo', { scale: 1.14, yPercent: 7, ease: 'none' }, 0)
     .to('.hero h1', { yPercent: -32, ease: 'none' }, 0)
@@ -61,30 +61,38 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
 
   // Alternating shutters read as a single frame being compiled from strips.
   // They cover a semantic <img>; no canvas or duplicated photo downloads.
-  gsap.timeline({ scrollTrigger: { trigger: '.reveal-section', start: 'top top', end: 'bottom bottom', scrub: .65 } })
+  gsap.timeline({ scrollTrigger: { trigger: '.reveal-section', start: 'top 80%', end: 'bottom bottom', scrub: .65 } })
     .to('.shutter i', { scaleY: 0, stagger: { each: .055, from: 'center' }, ease: 'power2.inOut', duration: .7 }, 0)
     .fromTo('.reveal-photo', { scale: 1.16 }, { scale: 1, ease: 'none', duration: 1.2 }, 0)
-    .from('.reveal-title', { y: 65, opacity: 0, duration: .4 }, .4)
+    .from('.reveal-title', { y: 35, opacity: .65, duration: .4 }, .12)
     .from('.reveal-bottom', { opacity: 0, duration: .3 }, .65)
     .fromTo('.cinema-bars i', { scaleY: 1.8 }, { scaleY: 0, duration: .7, ease: 'power2.inOut' }, .1)
     .fromTo('.reveal-title h2', { letterSpacing: '.04em' }, { letterSpacing: '-.065em', duration: .6 }, .4);
 
-  const track = document.querySelector('.memory-track');
-  const distance = () => Math.max(0, track.scrollWidth - innerWidth);
-  const memoryPosition = document.querySelector('.memory-position');
-  gsap.timeline({ scrollTrigger: { trigger: '.memory-scroll', start: 'top top', end: 'bottom bottom', scrub: .7, invalidateOnRefresh: true,
-    onUpdate: self => { memoryPosition.textContent = `${String(Math.min(3, 1 + Math.round(self.progress * 2))).padStart(2, '0')} — 03`; }
-  } })
-    .to(track, { x: () => -distance(), ease: 'none', duration: 1 }, 0)
-    .to('.memory-guide i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
-
-  // Independent scroll-linked depth on each photograph, no perpetual loops.
-  gsap.utils.toArray('.memory-frame').forEach((figure, index) => {
-    gsap.fromTo(figure, { rotationY: index % 2 ? -5 : 5 }, { rotationY: 0, ease: 'none', scrollTrigger: { trigger: '.memory-scroll', start: 'top bottom', end: 'bottom top', scrub: .9 } });
+  // Desktop travels horizontally; phones read photographs in normal vertical flow.
+  // Each breakpoint owns its animation context so resize cannot leave a stale x offset.
+  const galleryMedia = gsap.matchMedia();
+  galleryMedia.add('(min-width: 701px)', () => {
+    const track = document.querySelector('.memory-track');
+    const distance = () => Math.max(0, track.scrollWidth - innerWidth);
+    const position = document.querySelector('.memory-position');
+    gsap.timeline({ scrollTrigger: { trigger: '.memory-scroll', start: 'top top', end: 'bottom bottom', scrub: .7, invalidateOnRefresh: true,
+      onUpdate: self => { position.textContent = `${String(Math.min(3, 1 + Math.round(self.progress * 2))).padStart(2, '0')} — 03`; }
+    } })
+      .to(track, { x: () => -distance(), ease: 'none', duration: 1 }, 0)
+      .to('.memory-guide i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
+    gsap.utils.toArray('.memory-frame').forEach((figure, index) => {
+      gsap.fromTo(figure, { rotationY: index % 2 ? -5 : 5 }, { rotationY: 0, ease: 'none', scrollTrigger: { trigger: '.memory-scroll', start: 'top bottom', end: 'bottom top', scrub: .9 } });
+    });
   });
-  gsap.from('.invitation-card', { y: 60, rotationX: 7, opacity: .25, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.invitation-card', start: 'top 88%', once: true } });
+  galleryMedia.add('(max-width: 700px)', () => {
+    gsap.utils.toArray('.memory-frame').forEach(figure => {
+      gsap.from(figure, { y: 22, scale: .97, ease: 'none', scrollTrigger: { trigger: figure, start: 'top 95%', end: 'top 55%', scrub: .5 } });
+    });
+  });
+  gsap.from('.invitation-card', { y: 60, rotationX: 7, opacity: .7, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.invitation-card', start: 'top 88%', once: true } });
   gsap.from('.card-divider span', { scaleX: 0, stagger: .12, duration: 1, scrollTrigger: { trigger: '.card-date', start: 'top 90%', once: true } });
-  gsap.from('.rsvp-form', { y: 30, opacity: 0, duration: .9, scrollTrigger: { trigger: '.rsvp-form', start: 'top 90%', once: true } });
+  gsap.from('.rsvp-form', { y: 20, opacity: .7, duration: .9, scrollTrigger: { trigger: '.rsvp-form', start: 'top 90%', once: true } });
 
   const restoredHeadings = [];
   for (const heading of document.querySelectorAll('.compile-heading h2, .memories-heading h2, .invite-intro h2')) {
@@ -127,6 +135,7 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
   function onVisibility() { if (document.hidden) { intro.progress(1); lenis.stop(); resetPointer(); } else lenis.start(); }
   document.addEventListener('visibilitychange', onVisibility);
   return () => {
+    galleryMedia.revert();
     document.documentElement.classList.remove('motion-ready');
     gsap.ticker.remove(tick); lenis.destroy();
     document.querySelector('.hero').removeEventListener('pointermove', pointer);
