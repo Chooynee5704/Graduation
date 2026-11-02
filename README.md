@@ -1,42 +1,33 @@
-# Phương Mai — Hello, future.
+# Phương Mai — The human behind the code
 
-Thiệp mời tốt nghiệp cinematic 3D, cam–đen, dành cho Nguyễn Thị Phương Mai.
+Thiệp mời tốt nghiệp ngày **07.11.2026** tại Đại học FPT. Giữ nguyên thông tin liên hệ, địa chỉ, lời mời và backend xác nhận tham dự bằng D1.
+
+## Chạy local
 
 ```sh
 npm install
 npm run dev
 npm run build
-npm run preview
-```
-
-Ngày: **07.11.2026**. Địa chỉ: **Đường D1, Khu Công nghệ cao, Tăng Nhơn Phú, TP HCM**. Chưa có giờ tổ chức nên không tự thêm.
-
-## Bản dựng hiện tại
-
-Một world Three.js xuyên suốt với mũ tốt nghiệp có vật liệu vải, tua cam, dải đồng xoắn, terminal/code trong chiều sâu, hạt mũ tách rồi tụ lại và camera điều khiển bằng native scroll. GSAP + ScrollTrigger + Lenis. Background là shader realtime sử dụng ảnh ImageGen làm chất liệu; không phải video AI.
-
-Nội dung: `index.html`. Responsive: `src/style.css`. DOM motion và scroll conductor: `src/main.js`. Scene, camera và shader: `src/world.js`.
-
-Đọc [WORLD.md](WORLD.md) cho scene/camera/material/asset/lifecycle ledgers, [SKILLS-REVIEW.md](SKILLS-REVIEW.md) cho khảo sát 61 skill đầy đủ của project, và `qa/` cho bằng chứng kiểm thử.
-
-`?motion=reduce` mở bản tĩnh để kiểm tra fallback. Hệ điều hành bật reduced motion cũng nhận bản này tự động. Nút pause chỉ tạm dừng chuyển động nền tự động, vẫn giữ điều hướng cuộn.
-
-## Hosting
-
-Site identity trong `.openai/hosting.json`, bản production trong `dist/`. Giữ nguyên Site và quyền truy cập của bản trước. Chạy lại build trước khi đóng gói hoặc publish.
-
-## Xác nhận tham dự
-
-Website hiện chạy bằng Sites Vinext Worker để lưu xác nhận vào Cloudflare D1 (`DB`), bảng `attendance`. Chỉ lưu tên, mã chống gửi trùng và thời điểm gửi. Danh sách không có API đọc công khai. Chủ website có thể xem bảng trong Sites Settings → Database, hoặc yêu cầu Codex đọc danh sách qua công cụ Sites database.
-
-`index.html` vẫn là nguồn nội dung. `npm run build` trích phần body thành `app/experience.html`, giữ nguyên cảnh cinematic và build client + server. Khi sửa nội dung trước dev, chạy `node scripts/prepare-experience.mjs`.
-
-```sh
-npm run db:generate
-npm run build
-node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_luxuriant_wither.sql
-npm start -- --port 5173
+npm start -- --port 5174
 node --test tests/rsvp.test.mjs
 ```
 
-Chỉ áp dụng migration local một lần cho mỗi database local. Sites áp dụng migration production khi deploy. Dữ liệu kiểm thử chỉ nằm local và không được đưa lên production. Link hiện giữ nguyên quyền truy cập của Site; cần quyền chia sẻ phù hợp để khách truy cập và gửi tên.
+`index.html` là nguồn nội dung, `scripts/prepare-experience.mjs` sinh `app/experience.html` trước dev/build. CSS được import trong layout để SSR và trong client để Vinext dev tải đúng stylesheet.
+
+## Thiết kế ngày 02.11.2026
+
+- Hero ảnh thật, typography lớn và chuyển động parallax nhẹ theo pointer.
+- The source: đoạn code tượng trưng và thanh “Compiling memories” tiến theo cuộn.
+- The becoming: tám dải màn trập mở luân phiên để lộ ảnh giơ mũ; cuộn ngược đảo chiều.
+- The memories: album ảnh ngang điều khiển bằng cuộn dọc tự nhiên.
+- The invitation: thiệp trang trọng và form xác nhận tham dự.
+
+GSAP + ScrollTrigger + Lenis (một smooth-scroll engine). Không tải world Three.js cũ; ảnh và chuyển động DOM là trọng tâm. Không có vòng render WebGL hoặc animation nền vô hạn. Animation dùng transform và clip-path.
+
+`?motion=reduce` hoặc tùy chọn reduced motion của hệ điều hành hiển thị ảnh tĩnh và album dọc. Không có JavaScript vẫn đọc đủ nội dung theo luồng tài liệu. Xem `DESIGN.md` cho nguồn ảnh, ý tưởng và token; `qa/cinematic-2026-11-02.md` cho kiểm tra hiện tại.
+
+## Hosting và dữ liệu
+
+Site identity giữ nguyên trong `.openai/hosting.json`. Bản Worker production nằm trong `dist/`. Không đổi quyền truy cập khi cập nhật.
+
+Form `/api/rsvp` chỉ lưu tên, mã chống gửi trùng và thời điểm gửi vào `attendance`. Danh sách không có API đọc công khai. Chủ Site xem dữ liệu trong Sites Settings → Database. Không đưa dữ liệu test lên production.

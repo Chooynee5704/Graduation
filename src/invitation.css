@@ -31,3 +31,7 @@
 @media(prefers-reduced-motion:reduce){.invitation-stage{height:auto;min-height:100svh}.invitation-card .map-link{transition:none}}
 .reduced-motion .invitation-stage{height:auto;min-height:100svh}
 .invitation-stage{background:transparent}
+
+/* The invitation keeps its formal type while sharing the film's contrast. */
+.invitation-card.event{background:#101510;border-color:#62735a70;text-shadow:none;--card-accent:#e0b08b;--card-copy:#c2c9ba;padding:34px 28px}.invitation-card:before{border-color:#75816b30}.invitation-stage{position:relative;height:auto;min-height:100svh}.card-welcome{font-size:11px}.card-discipline{font-size:10px}.card-venue p,.card-contact{font-size:12px}.card-salutation,.card-message,.card-closing{font-size:12px}.card-graduate{font-size:clamp(23px,2.1vw,32px)}
+@media(max-width:700px){.invitation-stage{padding:75px 7%;gap:50px;background:transparent}.invitation-card.event{padding:30px 22px}.card-graduate{font-size:24px}.card-welcome{font-size:10px}}

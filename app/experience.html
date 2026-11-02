@@ -1,25 +1,51 @@
 
 <a class="skip-link" href="#invitation">Đến lời mời</a>
-<div class="world-poster" aria-hidden="true"></div><canvas id="world" aria-hidden="true"></canvas><div class="vignette" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="scroll-progress" aria-hidden="true"></div>
-<header class="nav"><a class="brand" href="#home" aria-label="Phương Mai, về đầu trang"><span>&lt;</span>pm<span>/&gt;</span></a><span class="nav-school">FPT University <i></i> Class of 2026</span><a class="nav-invite" href="#invitation">Mở lời mời <span aria-hidden="true">↗</span></a></header>
+<div class="scroll-progress" aria-hidden="true"></div>
+<header class="nav"><a class="brand" href="#home" aria-label="Phương Mai, về đầu trang">&lt;pm/&gt;</a><span class="nav-school">FPT University <span>Class of 2026</span></span><a class="nav-invite" href="#invitation">Lời mời của Mai <span aria-hidden="true">↗</span></a></header>
 <main>
-<section class="scene hero" id="home" data-scene="0" aria-labelledby="hero-title"><div class="scene-stage">
-<div class="hero-kicker"><span class="status-light"></span>A new chapter is loading</div>
-<h1 id="hero-title" class="hero-title"><span class="title-line">HELLO,</span><span class="title-line outline">FUTURE<span class="orange">.</span></span></h1>
-<div class="hero-person"><span class="small-label">Lễ tốt nghiệp của</span><p>Nguyễn Thị<br><strong>Phương Mai</strong></p><span class="person-role">Software Engineer</span></div>
-<div class="hero-coordinate" aria-hidden="true"><span>const next = 'a new beginning';</span><i></i><span>FROM SOURCE CODE TO NEW HORIZONS</span></div>
-<a class="scroll-cue" href="#hello-world"><span class="mouse-shape" aria-hidden="true"><i></i></span>Cuộn. Khám phá. Bắt đầu.</a><div class="hero-date">07.11<span>2026</span></div>
-</div></section>
-<section class="scene code-scene" id="hello-world" data-scene="1" aria-labelledby="code-title"><div class="scene-stage">
-<div class="code-heading"><span class="small-label orange">Every story starts somewhere.</span><h2 id="code-title">Một dòng code.<br>Một thế giới mới.</h2></div>
-<div class="floating-word" aria-hidden="true">&lt;hello, world /&gt;</div><div class="scene-caption"><span>Từ “hello, world” đầu tiên.</span><span>Đến hôm nay.</span></div>
-</div></section>
-<section class="scene graduate-scene" id="graduation" data-scene="2" aria-labelledby="graduate-title"><div class="scene-stage">
-<div class="graduate-title"><span class="small-label">Build complete. A new beginning.</span><h2 id="graduate-title"><span>STUDENT</span><span class="graduate-line">GRADUATE<span class="orange">.</span></span></h2></div>
-<div class="graduate-code" aria-hidden="true"><span>− student.close();</span><span>+ future.open();</span></div><p class="thank-you">Tấm bằng mang tên mình.<br>Hành trình có bạn.</p><div class="orbit-label" aria-hidden="true">THE NEXT CHAPTER IS OURS</div>
-</div></section>
-<section class="scene invitation-scene" id="invitation" data-scene="3" aria-labelledby="invite-title"><div class="scene-stage invitation-stage">
-<div class="invite-intro"><span class="small-label orange">Một ngày đặc biệt. Những người đặc biệt.</span><h2 id="invite-title">YOU'RE<br>INVITED<span class="orange">.</span></h2><p>Đến chung vui cùng Mai nhé.</p></div>
+<section class="hero" id="home" data-chapter="Opening" aria-labelledby="hero-title">
+  <div class="hero-topline"><span>Nguyễn Thị Phương Mai</span><span>Software Engineer</span></div>
+  <div class="hero-photo-wrap"><picture><source media="(max-width: 700px)" srcset="/photos/mai-1-960.webp"><img class="hero-photo" src="/photos/mai-1-1920.webp" width="1920" height="1280" alt="Phương Mai mỉm cười trong áo tốt nghiệp, cầm bằng với nơ đỏ" fetchpriority="high"></picture><div class="photo-shade"></div><span class="photo-cross cross-top" aria-hidden="true">+</span><span class="photo-cross cross-bottom" aria-hidden="true">+</span><span class="image-note">The human behind the code.</span></div>
+  <div class="hero-intro"><span class="hero-label">Thiệp mời tốt nghiệp</span><p>Một hành trình được viết.<br>Một chương mới đang mở.</p></div>
+  <h1 id="hero-title">HELLO,<br><span>FUTURE.</span></h1>
+  <div class="hero-bottom"><a class="scroll-cue" href="#hello-world"><span class="scroll-arrow" aria-hidden="true">↓</span>Cuộn để mở chương mới</a><time datetime="2026-11-07">07.11.2026 <span>Đại học FPT · TP. Hồ Chí Minh</span></time></div>
+  <span class="hero-edge" aria-hidden="true">from hello world to the real world</span>
+</section>
+<section class="compile-section" id="hello-world" data-chapter="The source" aria-labelledby="compile-title">
+ <div class="compile-stage">
+  <div class="compile-heading"><p class="chapter-label">01 / The source</p><h2 id="compile-title">Mọi khởi đầu,<br>đều từ một dòng.</h2><p>Từ “hello, world” đầu tiên.<br>Đến một thế giới đang chờ mình viết tiếp.</p></div>
+  <div class="source-code" aria-label="Đoạn code tượng trưng cho hành trình tốt nghiệp"><div class="source-file"><span>the-next-chapter.ts</span><span aria-hidden="true">{ }</span></div><pre><code><span class="code-dim">// A little code. A lot of memories.</span>
+<span class="code-key">const</span> journey = {
+  name: <span class="code-string">'Phương Mai'</span>,
+  from: <span class="code-string">'hello, world'</span>,
+  to:   <span class="code-string">'hello, future'</span>,
+  with: [<span class="code-string">'family'</span>, <span class="code-string">'friends'</span>]
+};
+
+<span class="code-key">await</span> journey.<span class="code-fn">nextChapter</span>();</code></pre><div class="build-line"><span>Compiling memories</span><span class="build-progress" aria-hidden="true">0%</span></div><div class="build-track" aria-hidden="true"><i></i></div></div>
+  <div class="compile-word" aria-hidden="true">&lt;student /&gt;</div>
+  <div class="compile-footer"><span>Cuộn tiếp để hoàn thành chương này</span><span aria-hidden="true">↓</span></div>
+ </div>
+</section>
+<section class="reveal-section" id="graduation" data-chapter="The becoming" aria-labelledby="graduate-title">
+ <div class="reveal-stage">
+  <img class="reveal-photo" src="/photos/mai-3-1920.webp" srcset="/photos/mai-3-960.webp 640w, /photos/mai-3-1920.webp 1280w" sizes="100vw" width="1280" height="1920" alt="Phương Mai quay lưng, giơ cao mũ tốt nghiệp trước sân trường" loading="lazy">
+  <div class="shutter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="reveal-shade"></div>
+  <div class="reveal-top"><span>02 / The becoming</span><span>07 November 2026</span></div>
+  <div class="reveal-title"><p>Build complete.</p><h2 id="graduate-title">GRADUATE<span>.</span></h2></div>
+  <div class="reveal-bottom"><p>Tấm bằng mang tên mình.<br>Hành trình có bạn.</p><span>&lt;/student&gt;<br>&lt;future&gt;</span></div>
+ </div>
+</section>
+<section class="memories" id="memories" data-chapter="The memories" aria-labelledby="memories-title">
+ <div class="memories-heading"><p class="chapter-label">03 / The memories</p><h2 id="memories-title">Ngoài những dòng code,<br>là những ngày rất đẹp.</h2><p>Có những khoảnh khắc,<br>mình muốn lưu lại mãi.</p></div>
+ <div class="memory-scroll"><div class="memory-stage"><div class="memory-track">
+  <figure class="memory-frame memory-wide"><img src="/photos/mai-2-1920.webp" srcset="/photos/mai-2-960.webp 960w, /photos/mai-2-1920.webp 1920w" sizes="(max-width: 700px) 88vw, 74vw" width="1920" height="1280" alt="Phương Mai trong áo tốt nghiệp trên hành lang ngập nắng" loading="lazy"><figcaption><span>Nắng trên hành lang quen.</span><span>01 / 03</span></figcaption></figure>
+  <figure class="memory-frame memory-wide"><img src="/photos/mai-4-1920.webp" srcset="/photos/mai-4-960.webp 960w, /photos/mai-4-1920.webp 1920w" sizes="(max-width: 700px) 88vw, 74vw" width="1920" height="1280" alt="Phương Mai ngoảnh nhìn và mỉm cười giữa khuôn viên trường" loading="lazy"><figcaption><span>Ngoảnh lại, là cả một thanh xuân.</span><span>02 / 03</span></figcaption></figure>
+  <figure class="memory-frame memory-portrait"><img src="/photos/mai-5-1920.webp" srcset="/photos/mai-5-960.webp 640w, /photos/mai-5-1920.webp 1280w" sizes="(max-width: 700px) 88vw, 44vw" width="1280" height="1920" alt="Phương Mai đứng bên hồ sen trong bộ áo tốt nghiệp" loading="lazy"><figcaption><span>Mang những ngày đẹp đi cùng.</span><span>03 / 03</span></figcaption></figure>
+ </div><div class="memory-guide"><span>Cuộn để lật ký ức</span><span class="memory-position" aria-hidden="true">01 — 03</span><div aria-hidden="true"><i></i></div></div></div></div>
+</section>
+<section class="invitation-scene" id="invitation" data-chapter="The invitation" aria-labelledby="invite-title"><div class="invitation-stage"><div class="invite-intro"><p class="chapter-label">04 / The invitation</p><h2 id="invite-title">Chương mới.<br>Có bạn.</h2><p>Một ngày đặc biệt sẽ trọn vẹn hơn<br>khi có những người mình thương ở đó.</p><a href="#rsvp" class="invite-cta">Để Mai biết bạn sẽ đến <span aria-hidden="true">↗</span></a><span class="invite-code" aria-hidden="true">nextChapter({ with: you });</span></div>
 <article class="event invitation-card" aria-labelledby="card-title">
   <div class="card-monogram" aria-hidden="true">PM</div>
   <p class="card-salutation">Trân trọng kính mời</p>
@@ -36,7 +62,6 @@
   <p class="card-closing">Hân hạnh đón tiếp.</p>
 </article>
 </div></section>
-<section class="finale" id="see-you" aria-labelledby="finale-title"><div class="finale-top"><span>&lt;/student&gt;</span><span>&lt;future&gt;</span></div><div class="finale-center"><p>Hẹn bạn ở chương mới.</p><h2 id="finale-title">LET'S MAKE<br><span>MEMORIES.</span></h2><a href="#invitation" class="finale-link">07.11.2026 <span>↗</span></a></div><footer><span>With love, Phương Mai.</span><span>Made of dreams & a little code.</span><a href="#home">Lên đầu ↑</a></footer></section>
 <section class="rsvp-section" id="rsvp" aria-labelledby="rsvp-title">
   <div class="rsvp-intro"><span class="rsvp-signature">Một chỗ dành cho bạn.</span><h2 id="rsvp-title">Bạn sẽ đến<br>chung vui chứ?</h2><p>Nếu có thể tham dự, hãy để lại tên<br>để Mai biết và đón bạn nhé.</p></div>
   <form class="rsvp-form" action="/api/rsvp" method="post">
@@ -49,7 +74,7 @@
   </form>
   <div class="rsvp-footer"><span>Hẹn gặp bạn vào ngày 07.11.2026.</span><a href="#home">Về đầu trang ↑</a></div>
 </section>
+<footer class="site-footer"><a class="brand" href="#home" aria-label="Về đầu trang">&lt;pm/&gt;</a><p>With love, Phương Mai.<br><span>Made of dreams & a little code.</span></p><a href="#home">Về đầu trang ↑</a></footer>
 </main>
-<aside class="chapter-nav" aria-label="Các cảnh của thiệp mời"><a href="#home" aria-label="Mở đầu" aria-current="step"><span>01</span><i></i></a><a href="#hello-world" aria-label="Hello world"><span>02</span><i></i></a><a href="#graduation" aria-label="Tốt nghiệp"><span>03</span><i></i></a><a href="#invitation" aria-label="Lời mời"><span>04</span><i></i></a></aside>
-<button class="motion-toggle" type="button" aria-pressed="false" aria-label="Tạm dừng chuyển động nền"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Motion on</span></button>
+<nav class="chapter-nav" aria-label="Các chương"><a href="#home" aria-label="Mở đầu" aria-current="step"><i></i></a><a href="#hello-world" aria-label="Dòng code đầu tiên"><i></i></a><a href="#graduation" aria-label="Tốt nghiệp"><i></i></a><a href="#memories" aria-label="Album ký ức"><i></i></a><a href="#invitation" aria-label="Lời mời"><i></i></a></nav>
 
