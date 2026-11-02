@@ -20,3 +20,14 @@ Browser: Codex in-app browser on Windows. Desktop 1280×720; mobile viewport 390
 The local production preview must be restarted after rebuilding because Wrangler watches output while Vinext replaces modules. This is a preview lifecycle issue, not a production bundle failure.
 
 Not measured: physical-device GPU/battery use, long-session memory profile, OS reduced-motion toggle, browser JavaScript disabled, screen-reader listening session.
+
+## Integrated portrait and event time follow-up
+
+- Added user-supplied 10:00–12:30 to hero, formal card and RSVP footer, with ISO datetimes including +07:00.
+- Visually checked the transparent hero at desktop 1280×720 and mobile 390×844. Adjusted mobile cutout bounds so the diploma and bow fit.
+- Checked mobile invitation and its time, venue, contact and map action; no horizontal overflow.
+- Checked 360×800 reduced-motion album: vertical grid, hidden shutters, no horizontal overflow, mobile cutout source selected. No browser warnings/errors in inspected logs.
+- All five photos retained in the narrative (hero uses the edited alpha derivative of photo 1). Sources untouched.
+- Build and JavaScript syntax check passed after implementation. Backend unchanged.
+- Evidence: blended-mobile.png and blended-invitation-mobile.png.
+- Browser viewport tests only; physical iOS/Android devices and long-run performance not measured.

@@ -1,6 +1,7 @@
 import './style.css';
 import './invitation.css';
 import './rsvp.css';
+import './cinematic.css';
 import './rsvp.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -42,10 +43,13 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
   const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
   intro.from('.hero-photo-wrap', { clipPath: 'inset(0 0 100% 0)', duration: 1.35 }, .05)
     .from('.hero h1', { y: 65, duration: 1.25 }, .12)
+    .from('.portal-orbits i', { scale: .7, opacity: 0, rotation: '-=25', stagger: .1, duration: 1.6 }, .1)
     .from('.hero-intro, .hero-topline, .hero-bottom', { opacity: 0, y: 12, stagger: .1, duration: .75 }, .35);
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .7 } })
     .to('.hero-photo', { scale: 1.14, yPercent: 7, ease: 'none' }, 0)
-    .to('.hero h1', { yPercent: -24, ease: 'none' }, 0);
+    .to('.hero h1', { yPercent: -32, ease: 'none' }, 0)
+    .to('.portal-orbits', { rotation: 32, scale: 1.25, yPercent: -14, ease: 'none' }, 0)
+    .to('.hero-atmosphere', { opacity: .25, ease: 'none' }, 0);
 
   const build = document.querySelector('.build-progress');
   const buildState = { value: 0 };
@@ -53,7 +57,7 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
   compile.to('.build-track i', { scaleX: 1, ease: 'none', duration: 1 }, 0)
     .to(buildState, { value: 100, ease: 'none', duration: 1, onUpdate: () => { build.textContent = `${Math.round(buildState.value)}%`; } }, 0)
     .fromTo('.compile-word', { xPercent: 8 }, { xPercent: -9, ease: 'none', duration: 1 }, 0)
-    .to('.source-code', { y: -20, duration: .4 }, .6);
+    .fromTo('.source-code', { rotationY: -9, rotationX: 5 }, { rotationY: 0, rotationX: 0, y: -25, duration: 1 }, 0);
 
   // Alternating shutters read as a single frame being compiled from strips.
   // They cover a semantic <img>; no canvas or duplicated photo downloads.
@@ -61,7 +65,9 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
     .to('.shutter i', { scaleY: 0, stagger: { each: .055, from: 'center' }, ease: 'power2.inOut', duration: .7 }, 0)
     .fromTo('.reveal-photo', { scale: 1.16 }, { scale: 1, ease: 'none', duration: 1.2 }, 0)
     .from('.reveal-title', { y: 65, opacity: 0, duration: .4 }, .4)
-    .from('.reveal-bottom', { opacity: 0, duration: .3 }, .65);
+    .from('.reveal-bottom', { opacity: 0, duration: .3 }, .65)
+    .fromTo('.cinema-bars i', { scaleY: 1.8 }, { scaleY: 0, duration: .7, ease: 'power2.inOut' }, .1)
+    .fromTo('.reveal-title h2', { letterSpacing: '.04em' }, { letterSpacing: '-.065em', duration: .6 }, .4);
 
   const track = document.querySelector('.memory-track');
   const distance = () => Math.max(0, track.scrollWidth - innerWidth);
@@ -71,6 +77,14 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
   } })
     .to(track, { x: () => -distance(), ease: 'none', duration: 1 }, 0)
     .to('.memory-guide i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
+
+  // Independent scroll-linked depth on each photograph, no perpetual loops.
+  gsap.utils.toArray('.memory-frame').forEach((figure, index) => {
+    gsap.fromTo(figure, { rotationY: index % 2 ? -5 : 5 }, { rotationY: 0, ease: 'none', scrollTrigger: { trigger: '.memory-scroll', start: 'top bottom', end: 'bottom top', scrub: .9 } });
+  });
+  gsap.from('.invitation-card', { y: 60, rotationX: 7, opacity: .25, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.invitation-card', start: 'top 88%', once: true } });
+  gsap.from('.card-divider span', { scaleX: 0, stagger: .12, duration: 1, scrollTrigger: { trigger: '.card-date', start: 'top 90%', once: true } });
+  gsap.from('.rsvp-form', { y: 30, opacity: 0, duration: .9, scrollTrigger: { trigger: '.rsvp-form', start: 'top 90%', once: true } });
 
   const restoredHeadings = [];
   for (const heading of document.querySelectorAll('.compile-heading h2, .memories-heading h2, .invite-intro h2')) {

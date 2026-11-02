@@ -31,3 +31,5 @@ GSAP + ScrollTrigger + Lenis (một smooth-scroll engine). Không tải world Th
 Site identity giữ nguyên trong `.openai/hosting.json`. Bản Worker production nằm trong `dist/`. Không đổi quyền truy cập khi cập nhật.
 
 Form `/api/rsvp` chỉ lưu tên, mã chống gửi trùng và thời điểm gửi vào `attendance`. Danh sách không có API đọc công khai. Chủ Site xem dữ liệu trong Sites Settings → Database. Không đưa dữ liệu test lên production.
+
+Follow-up: the invitation now includes **10:00–12:30**. Portrait alpha cutout, continuous warm-black background and responsive photograph masks are in `src/cinematic.css`; see `DESIGN.md` for image-edit provenance and motion changes.

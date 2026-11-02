@@ -19,3 +19,13 @@ Only user-provided photographs are used. Original files stay untouched in ../ima
 | mai-5 | 1793621579976_181309247163765413_6960243538607137718_3af0e08e3072c212e53216b8b47b0f52.jpg | Lotus pond portrait, memory 3 |
 
 Photos include meaningful alt text, dimensions, responsive source selection, eager hero loading and lazy loading below the fold. Reduced motion and no-JavaScript use ordinary vertical flow. No autonomous background motion, cursor replacement, preloader, added fictional achievements, icons or logo-wall claims.
+
+## Second pass: integrated portrait, 10:00–12:30
+
+User requested a harmonious dark photographic background, stronger cinematic movement and mobile refinement. Hero now uses an alpha cutout edited from mai-1 using built-in image_gen background extraction. The original input is unchanged. Generated PNG is public/photos/mai-hero-cutout.png; optimized alpha WebP derivatives are mai-cutout-960.webp and mai-cutout-1600.webp. Edit brief: remove railings/trees/floor only; preserve the same face, smile, hair, pose, graduation gown, diploma and red bow; genuine transparency, no added objects, text or backdrop. Generated result reviewed before use.
+
+A warm-black palette now continues through hero, graduation, album, invitation and RSVP. CSS grading and feathered masks integrate the other original photos without editing their source pixels. On mobile the graduation portrait uses contain instead of an aggressive landscape crop.
+
+Additional scroll-linked motion: orbital portal lines behind the cutout, separate portrait/title/background depth, a source-code panel settling in perspective, cinematic bars opening with graduation shutters, graduate title tracking settling, filmstrip perspective, invitation reveal and divider opening, RSVP entrance. No autonomous motion loop; existing GSAP matchMedia cleanup owns every added animation. The cinematic-gsap-lenis-motion-system skill was applied.
+
+Time is supplied by the user: 10:00–12:30, Asia/Ho_Chi_Minh, on 07.11.2026; rendered in hero, formal invitation and RSVP footer. No access changes.
