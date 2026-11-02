@@ -84,3 +84,5 @@
 .portal-orbits>span{display:none}
 .hero h1{text-shadow:0 3px 22px #0005}
 @media(max-width:700px){.hero-photo-wrap{left:8%;right:3%}}
+.footer-actions{display:flex;align-items:center;gap:25px;font-size:11px;flex-wrap:wrap}.footer-actions>a:first-child{color:#d4b89b}
+@media(max-width:700px){.footer-actions{gap:18px;font-size:10px}}

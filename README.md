@@ -33,3 +33,13 @@ Site identity giữ nguyên trong `.openai/hosting.json`. Bản Worker productio
 Form `/api/rsvp` chỉ lưu tên, mã chống gửi trùng và thời điểm gửi vào `attendance`. Danh sách không có API đọc công khai. Chủ Site xem dữ liệu trong Sites Settings → Database. Không đưa dữ liệu test lên production.
 
 Follow-up: the invitation now includes **10:00–12:30**. Portrait alpha cutout, continuous warm-black background and responsive photograph masks are in `src/cinematic.css`; see `DESIGN.md` for image-edit provenance and motion changes.
+
+## Sổ khách mời dành cho chủ thiệp
+
+Mở `/admin` hoặc liên kết “Quản lý khách mời” ở cuối thiệp. Đăng nhập ChatGPT bằng tài khoản chủ thiệp `mainee5704@gmail.com`. Trang hiển thị tổng lượt xác nhận, tên và thời điểm gửi (giờ Việt Nam), tìm kiếm theo một phần tên, phân trang 50 dòng, làm mới và tải CSV theo bộ lọc. Không xóa hay sửa xác nhận.
+
+API `/api/admin/attendance` kiểm tra identity do Sites cung cấp và allowlist email chủ thiệp trên server cho mỗi lần đọc hoặc xuất CSV. Khách ẩn danh nhận 401, tài khoản khác nhận 403, response không cache. Không có bí mật trong client, không đổi audience của Site. CSV có BOM UTF-8, escape dấu ngoặc kép và trung hòa công thức bảng tính. Giới hạn xuất 10.000 dòng mỗi bộ lọc; vượt giới hạn yêu cầu thu hẹp tìm kiếm thay vì cắt dữ liệu âm thầm.
+
+Local preview cho phép identity mock `local_seedy / seedy@sites.test` chỉ khi `import.meta.env.DEV` bật. Bản production tắt nhánh này. Dùng đăng nhập local tại `/signin-with-chatgpt?return_to=%2Fadmin` để xem dữ liệu local. Không có tài khoản mock hoặc dữ liệu kiểm thử được tạo trên production.
+
+`node --test tests/*.test.mjs`: 15 bài kiểm tra, gồm xác thực, quyền xuất CSV, SQL có bind, phân trang, công thức CSV, lỗi database và RSVP cũ.
