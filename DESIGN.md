@@ -37,3 +37,9 @@ Mobile (≤700px) album is now an editorial vertical sequence with natural image
 Mobile hero minimum height reduced from 780px to 640px. At 360×740, hero/date/scroll cue fit in the first screen. Secondary type increased: role 10–11px, location 11px, invitation welcome 12px, body 13px. Phone and scroll links have ≥44px touch heights. Hero copy retains its original line break and label uses the body font to fit without awkward wrapping.
 
 Graduation shutters begin opening while the chapter enters the viewport (top 80%), rather than waiting for its sticky stage. Invitation and RSVP entrances begin already readable. Desktop typography and photo fill were tuned without changing photos or content.
+
+## Mobile scroll choreography
+
+The mobile vertical album now has reversible scroll-scrubbed photo-window expansion (10%/7% insets to zero), bounded image zoom (1.14 to 1) and 4% vertical drift, plus caption rise/opacity. Per-photo media wrappers are created only by the mobile matchMedia context and removed on breakpoint cleanup. Desktop markup/filmstrip remains unchanged; no-JavaScript and reduced-motion paths use the original figures.
+
+Mobile invitation gets a scroll-linked settle from 94% scale and 45px offset into full size; desktop retains its existing one-time entrance. Supporting copy reveals with a restrained scroll-linked rise. Controls and RSVP input are not given new scrubbed motion. All new timelines live under the existing reduced-motion guard. Native touch scrolling stays native (Lenis syncTouch is not enabled).

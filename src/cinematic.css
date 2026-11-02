@@ -147,3 +147,7 @@
  .hero-intro{bottom:115px}
  .hero-bottom{bottom:15px}.hero-bottom time span{font-size:10px}
 }
+
+/* Mobile photographs animate inside their own frame without changing layout. */
+.mobile-photo-frame{display:block;width:100%;overflow:hidden;isolation:isolate;line-height:0;transform:translateZ(0)}
+.mobile-photo-frame img{display:block;transform-origin:50% 50%}

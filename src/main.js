@@ -86,11 +86,31 @@ media.add('(prefers-reduced-motion: no-preference)', () => {
     });
   });
   galleryMedia.add('(max-width: 700px)', () => {
+    // Wrappers exist only while mobile motion is active. Static/reduced-motion
+    // and desktop retain the original figure markup and natural image ratios.
+    const unwrap = [];
     gsap.utils.toArray('.memory-frame').forEach(figure => {
-      gsap.from(figure, { y: 22, scale: .97, ease: 'none', scrollTrigger: { trigger: figure, start: 'top 95%', end: 'top 55%', scrub: .5 } });
+      const image = figure.querySelector('img');
+      const caption = figure.querySelector('figcaption');
+      const frame = document.createElement('div');
+      frame.className = 'mobile-photo-frame';
+      image.before(frame); frame.append(image);
+      unwrap.push(() => frame.replaceWith(image));
+      gsap.timeline({ scrollTrigger: { trigger: figure, start: 'top 96%', end: 'top 32%', scrub: .45, invalidateOnRefresh: true } })
+        .fromTo(frame, { clipPath: 'inset(10% 7% 10% 7%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .7, ease: 'power2.out' }, 0)
+        .fromTo(image, { scale: 1.14, yPercent: 4 }, { scale: 1, yPercent: 0, duration: 1, ease: 'none' }, 0)
+        .fromTo(caption, { y: 20, opacity: .45 }, { y: 0, opacity: 1, duration: .4, ease: 'power2.out' }, .2);
     });
+    gsap.timeline({ scrollTrigger: { trigger: '.invitation-card', start: 'top 96%', end: 'top 28%', scrub: .55 } })
+      .from('.invitation-card', { y: 45, scale: .94, opacity: .7, ease: 'power2.out', duration: 1 }, 0);
+    gsap.utils.toArray('.compile-heading > p:last-child, .memories-heading > p:last-child, .invite-intro > p:not(.chapter-label), .rsvp-intro > p').forEach(copy => {
+      gsap.from(copy, { y: 24, opacity: .55, ease: 'power2.out', scrollTrigger: { trigger: copy, start: 'top 96%', end: 'top 72%', scrub: .45 } });
+    });
+    return () => unwrap.forEach(restore => restore());
   });
-  gsap.from('.invitation-card', { y: 60, rotationX: 7, opacity: .7, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.invitation-card', start: 'top 88%', once: true } });
+  galleryMedia.add('(min-width: 701px)', () => {
+    gsap.from('.invitation-card', { y: 60, rotationX: 7, opacity: .7, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.invitation-card', start: 'top 88%', once: true } });
+  });
   gsap.from('.card-divider span', { scaleX: 0, stagger: .12, duration: 1, scrollTrigger: { trigger: '.card-date', start: 'top 90%', once: true } });
   gsap.from('.rsvp-form', { y: 20, opacity: .7, duration: .9, scrollTrigger: { trigger: '.rsvp-form', start: 'top 90%', once: true } });
 
